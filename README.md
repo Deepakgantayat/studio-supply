@@ -25,13 +25,39 @@ Open <http://localhost:5173> to use the catalogue and <http://localhost:8025> to
 
 Requirements: Node.js 20 or newer and npm. From this directory:
 
+First copy the example environment file. In PowerShell, use:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Then install dependencies once:
+
 ```sh
-cp .env.example .env
 npm install
+```
+
+Start both services together:
+
+```sh
 npm run dev
 ```
 
-Open <http://localhost:5173>. The API is at <http://localhost:4000/api/health>. Product data requires an internet connection to Fake Store API. Without SMTP settings, enquiries are saved as JSON lines in `server/data/enquiries.jsonl`; this is a local development fallback, not inbox delivery. For actual email delivery, set `SMTP_HOST`, `SMTP_PORT`, optional `SMTP_USER`/`SMTP_PASS`, and `SALES_INBOX` in `.env` to a local SMTP catcher or an SMTP server you already have access to.
+Or start them in separate terminals from this directory:
+
+**Terminal 1 — backend API**
+
+```sh
+npm run dev:server
+```
+
+**Terminal 2 — frontend**
+
+```sh
+npm run dev:client
+```
+
+Open <http://localhost:5173> for the frontend. The backend health endpoint is <http://localhost:4000/api/health>. Product data requires an internet connection to Fake Store API. Without SMTP settings, enquiries are saved as JSON lines in `server/data/enquiries.jsonl`; this is a local development fallback, not inbox delivery. For actual email delivery, set `SMTP_HOST`, `SMTP_PORT`, optional `SMTP_USER`/`SMTP_PASS`, and `SALES_INBOX` in `.env` to a local SMTP catcher or an SMTP server you already have access to.
 
 ## Commands
 
