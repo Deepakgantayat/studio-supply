@@ -1,0 +1,28 @@
+services:
+  api:
+    build: .
+    command: npm run dev:server
+    environment:
+      PORT: 4000
+      CLIENT_ORIGIN: http://localhost:5173
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+      SALES_INBOX: sales@studio-supply.test
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mailpit
+  web:
+    build: .
+    command: npm run dev:client
+    environment:
+      API_TARGET: http://api:4000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+  mailpit:
+    image: axllent/mailpit:v1.22
+    ports:
+      - "8025:8025"
+      - "1025:1025"
